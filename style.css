@@ -1,0 +1,22 @@
+body {
+    font-family: Noto Sans, sans-serif;
+    font-size: 11pt;
+}
+
+#timer-box {
+    text-align: center;
+}
+
+#timer {
+    text-align: center;
+    margin: 0 auto;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+#time {
+    font-family: Noto Mono, monospace;
+    font-size: 2em;
+}
