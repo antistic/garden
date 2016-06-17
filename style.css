@@ -67,10 +67,26 @@ body {
     padding: 0 1em;
 }
 
-#footer ul li{
+#footer ul li {
     display: inline-block;
 }
 
-#footer ul li img {
-    vertical-align: text-bottom;
+#github a:active img {
+    background: url("./imgs/github-pressed.png");
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    padding-left: 20px;
+}
+
+#settings {
+    cursor: pointer;
+}
+
+#settings img:active {
+    background: url("./imgs/settings-pressed.png");
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    padding-left: 20px;
 }
