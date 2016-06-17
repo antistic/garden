@@ -9,6 +9,7 @@ body {
     justify-content: center;
     flex-direction: column;
     min-height: 100%;
+    margin: 0;
 }
 
 #timer-box {
@@ -50,4 +51,26 @@ body {
 .tomato {
     background-color: #EE2222;
     border: none;
+}
+
+#footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+#footer ul {
+    text-align: center;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1em;
+}
+
+#footer ul li{
+    display: inline-block;
+}
+
+#footer ul li img {
+    vertical-align: text-bottom;
 }
