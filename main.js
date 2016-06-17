@@ -66,6 +66,7 @@ GardenApp = {
 var timer = {
     startTime: 0,
     stopTime: 0,
+    running: false,
     intervalID: null,
     minutesC: 1000*60,
     active: 'tomato',
@@ -77,6 +78,7 @@ var timer = {
         this.startTime = d;
         this.stopTime = d + this.types[type] * this.minutesC;
         this.active = type;
+        this.running = true;
 
         GardenApp.save();
         this.run();
@@ -94,6 +96,7 @@ var timer = {
     cancel: function() {
         window.clearInterval(this.intervalID);
         timer.stopTime = 0;
+        this.running = false;
         s.timeText.textContent = '0:00';
         GardenApp.save();
     },
@@ -111,14 +114,18 @@ var timer = {
     },
     save: function() {
         localStorage.setItem('timerEnd', JSON.stringify( this.stopTime ));
+        localStorage.setItem('timerRunning', JSON.stringify( this.running ));
     },
 
     load: function() {
-        var timerEnd= JSON.parse(localStorage.getItem('timerEnd'));
-        if (timerEnd != undefined) {
-            this.stopTime = timerEnd;
+        var timerRunning = JSON.parse(localStorage.getItem('timerRunning'));
+        if (timerRunning != null && timerRunning) {
+            var timerEnd = JSON.parse(localStorage.getItem('timerEnd'));
+            if (timerEnd != undefined) {
+                this.stopTime = timerEnd;
+            }
+            this.run();
         }
-        this.run();
     },
 };
 
