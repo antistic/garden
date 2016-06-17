@@ -1,6 +1,14 @@
+html{
+    height: 100%;
+}
+
 body {
     font-family: Noto Sans, sans-serif;
     font-size: 11pt;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100%;
 }
 
 #timer-box {
@@ -19,4 +27,27 @@ body {
 #time {
     font-family: Noto Mono, monospace;
     font-size: 2em;
+}
+
+#garden {
+    margin: 3em 10em;
+}
+
+#marks {
+    text-align: center;
+}
+
+.mark {
+    height: 10px;
+    width: 10px;
+    border-radius: 10px;
+    border: 1px solid #aaa;
+    background-color: #ccc;
+    margin: 3px;
+    display: inline-block;
+}
+
+.tomato {
+    background-color: #EE2222;
+    border: none;
 }
