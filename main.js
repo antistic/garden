@@ -130,21 +130,8 @@ var timer = {
 };
 
 function notifyMe(notificationText) {
-  if (!("Notification" in window) && allowAlert) {
+    document.getElementById("sound").play();
     alert(notificationText);
-  }
-
-  else if (Notification.permission === "granted") {
-    var notification = new Notification(notificationText);
-  }
-
-  else if (Notification.permission !== 'denied') {
-    Notification.requestPermission(function (permission) {
-      if (permission === "granted") {
-        var notification = new Notification(notificationText);
-      }
-    });
-  }
 };
 
 (function() {
