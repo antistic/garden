@@ -71,22 +71,31 @@ body {
     display: inline-block;
 }
 
-#github a:active img {
-    background: url("./imgs/github-pressed.png");
-    box-sizing: border-box;
-    width: 20px;
-    height: 20px;
-    padding-left: 20px;
-}
-
 #settings {
     cursor: pointer;
 }
 
-#settings img:active {
+#github a img {
+    background: url("./imgs/github-pressed.png");
+}
+
+#settings img {
     background: url("./imgs/settings-pressed.png");
+}
+
+#settings img, #github a img {
     box-sizing: border-box;
+    background-size: 20px 20px;
     width: 20px;
     height: 20px;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering:   -o-crisp-edges;
+    image-rendering:      pixelated;
+    image-rendering:      crisp-edges;
+    -ms-interpolation-mode: nearest-neigbor;
+}
+
+#settings img:active, #github a:active img{
     padding-left: 20px;
 }
