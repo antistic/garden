@@ -96,6 +96,7 @@ var UI = {
     updatePlant: function(plantType, number) {
         var path = "./imgs/plants/" + plantType + "/a/" + number + ".png"
         this.vars.plantImg.src = path;
+        this.vars.plantImg.classList = "";
     },
 
     toggleSettings: function() {

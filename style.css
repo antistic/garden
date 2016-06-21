@@ -43,6 +43,12 @@ body {
     image-rendering:      pixelated;
     image-rendering:      crisp-edges;
     -ms-interpolation-mode: nearest-neigbor;
+    transition: 0.5s all;
+}
+
+#plant.hidden {
+    opacity: 0;
+    height: 0;
 }
 
 #garden {
