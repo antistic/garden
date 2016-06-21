@@ -3,9 +3,12 @@ GardenApp = {
     settings: {
         startButton: document.getElementById("start"),
         stopButton: document.getElementById("stop"),
+        settingsButton: document.getElementById("settingsButton"),
         timeText: document.getElementById("time"),
         marks: document.getElementById("marks"),
+        showSettings: false,
         allowAlert: true,
+        muted: false,
     },
 
     data: {
@@ -53,10 +56,23 @@ GardenApp = {
         s.marks.appendChild(newMark);
     },
 
+    toggleMute: function() {
+        s.muted = !s.muted;
+    },
+
+    reset: function() {
+        var doIt = window.confirm("Do you really want to reset?");
+        if (doIt){
+            document.location.reload();
+            localStorage.clear();
+        }
+    }
 };
+
 var UI = {
     vars: {
         plantImg: document.getElementById("plant"),
+        settingsDiv: document.getElementById("settings"),
     },
 
     bindUIActions: function() {
@@ -66,20 +82,55 @@ var UI = {
         s.stopButton.addEventListener("click", function() {
             timer.cancel();
         });
+        s.settingsButton.addEventListener("click", function() {
+            UI.toggleSettings();
+        });
+        document.getElementById("mute").addEventListener("click", function() {
+            GardenApp.toggleMute();
+        });
+        document.getElementById("reset").addEventListener("click", function() {
+            GardenApp.reset();
+        });
     },
 
     updatePlant: function(plantType, number) {
         var path = "./imgs/plants/" + plantType + "/a/" + number + ".png"
         this.vars.plantImg.src = path;
     },
+
+    toggleSettings: function() {
+        if (s.showSettings) {
+            this.hideSettings();
+        } else {
+            this.showSettings();
+        }
+    },
+
+    showSettings: function() {
+        s.showSettings = true;
+        this.vars.settingsDiv.classList = "";
+        document.addEventListener("click", UI.outsideDivHandler);
+    },
+
+    hideSettings: function() {
+        s.showSettings = false;
+        this.vars.settingsDiv.classList = "hidden";
+        document.removeEventListener("click", UI.outsideDivHandler);
+    },
+
+    outsideDivHandler: function(e) {
+        if (e.target.id == "settings") {
+            UI.hideSettings();
+        }
+    }
 };
 
 var timer = {
     startTime: 0,
     stopTime: 0,
     timeLeft: {
-        mins: 0,
-        secs: 0,
+        mins: -1,
+        secs: -1,
     },
     running: false,
     intervalID: null,
@@ -151,7 +202,7 @@ var timer = {
 };
 
 function notifyMe(notificationText) {
-    document.getElementById("sound").play();
+    if (!s.mute) { document.getElementById("sound").play(); };
     alert(notificationText);
 };
 

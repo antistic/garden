@@ -68,6 +68,45 @@ body {
     border: none;
 }
 
+#settings {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    z-index: 3;
+}
+
+#settings.hidden {
+    display: none;
+}
+
+#settings > div{
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    height: 300px;
+    width: 300px;
+}
+
+#settings > div > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#settings > div > h2 {
+    text-align: center;
+}
+
+#settings > div > ul > li {
+    list-style: none;
+    padding: 0.5em;
+}
+
 #footer {
     position: absolute;
     width: 100%;
@@ -86,19 +125,20 @@ body {
     display: inline-block;
 }
 
-#settings {
+#settingsButton {
     cursor: pointer;
+    z-index: 5;
 }
 
 #github a img {
     background: url("./imgs/github-pressed.png");
 }
 
-#settings img {
+#settingsButton img {
     background: url("./imgs/settings-pressed.png");
 }
 
-#settings img, #github a img {
+#settingsButton img, #github a img {
     box-sizing: border-box;
     background-size: 20px 20px;
     width: 20px;
@@ -111,6 +151,6 @@ body {
     -ms-interpolation-mode: nearest-neigbor;
 }
 
-#settings img:active, #github a:active img{
+#settingsButton img:active, #github a:active img{
     padding-left: 20px;
 }
