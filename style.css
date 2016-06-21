@@ -30,6 +30,21 @@ body {
     font-size: 2em;
 }
 
+#plantDiv {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+#plant {
+    height: 256px;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering:   -o-crisp-edges;
+    image-rendering:      pixelated;
+    image-rendering:      crisp-edges;
+    -ms-interpolation-mode: nearest-neigbor;
+}
+
 #garden {
     margin: 3em 10em;
 }

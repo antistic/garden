@@ -5,6 +5,7 @@ GardenApp = {
         stopButton: document.getElementById("stop"),
         timeText: document.getElementById("time"),
         marks: document.getElementById("marks"),
+        plantImg: document.getElementById("plant"),
         allowAlert: true,
     },
 
@@ -61,11 +62,20 @@ GardenApp = {
         newMark.className = "mark " + thing;
         s.marks.appendChild(newMark);
     },
+
+    updatePlant: function(plantType, number) {
+        var path = "./imgs/plants/" + plantType + "/a/" + number + ".png"
+        s.plantImg.src = path;
+    }
 };
 
 var timer = {
     startTime: 0,
     stopTime: 0,
+    timeLeft: {
+        mins: 0,
+        secs: 0,
+    },
     running: false,
     intervalID: null,
     minutesC: 1000*60,
@@ -107,6 +117,12 @@ var timer = {
         var secs = Math.floor(time % 3600 % 60);
 
         s.timeText.textContent = mins + ":" + (secs < 10 ? "0" : "") + secs;
+
+        if (this.timeLeft.mins != mins) {
+            GardenApp.updatePlant(this.active, this.types[this.active] - mins);
+        }
+        this.timeLeft.mins = mins;
+        this.timeLeft.secs = secs;
 
         if (time <= 0) {
             this.stop();
