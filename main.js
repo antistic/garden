@@ -5,7 +5,6 @@ GardenApp = {
         stopButton: document.getElementById("stop"),
         timeText: document.getElementById("time"),
         marks: document.getElementById("marks"),
-        plantImg: document.getElementById("plant"),
         allowAlert: true,
     },
 
@@ -40,17 +39,8 @@ GardenApp = {
 
     init: function() {
         s = this.settings;
-        this.bindUIActions();
+        UI.bindUIActions();
         this.load();
-    },
-
-    bindUIActions: function() {
-        s.startButton.addEventListener("click", function() {
-            GardenApp.startTimer();
-        })
-        s.stopButton.addEventListener("click", function() {
-            timer.cancel();
-        })
     },
 
     startTimer: function() {
@@ -63,10 +53,25 @@ GardenApp = {
         s.marks.appendChild(newMark);
     },
 
+};
+var UI = {
+    vars: {
+        plantImg: document.getElementById("plant"),
+    },
+
+    bindUIActions: function() {
+        s.startButton.addEventListener("click", function() {
+            GardenApp.startTimer();
+        });
+        s.stopButton.addEventListener("click", function() {
+            timer.cancel();
+        });
+    },
+
     updatePlant: function(plantType, number) {
         var path = "./imgs/plants/" + plantType + "/a/" + number + ".png"
-        s.plantImg.src = path;
-    }
+        this.vars.plantImg.src = path;
+    },
 };
 
 var timer = {
@@ -119,7 +124,7 @@ var timer = {
         s.timeText.textContent = mins + ":" + (secs < 10 ? "0" : "") + secs;
 
         if (this.timeLeft.mins != mins) {
-            GardenApp.updatePlant(this.active, this.types[this.active] - mins);
+            UI.updatePlant(this.active, this.types[this.active] - mins - 1);
         }
         this.timeLeft.mins = mins;
         this.timeLeft.secs = secs;
