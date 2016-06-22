@@ -46,10 +46,6 @@ GardenApp = {
         this.load();
     },
 
-    startTimer: function() {
-        timer.start('tomato');
-    },
-
     addMark: function(thing) {
         var newMark = document.createElement("div");
         newMark.className = "mark " + thing;
@@ -77,7 +73,7 @@ var UI = {
 
     bindUIActions: function() {
         s.startButton.addEventListener("click", function() {
-            GardenApp.startTimer();
+            timer.start('tomato');
         });
         s.stopButton.addEventListener("click", function() {
             timer.cancel();
@@ -155,6 +151,8 @@ var timer = {
         this.active = type;
         this.running = true;
         UI.loadPlant(this.active);
+        s.startButton.classList = "hidden";
+        s.stopButton.classList = "";
 
         GardenApp.save();
         this.run();
@@ -175,6 +173,8 @@ var timer = {
         this.running = false;
         s.timeText.textContent = '0:00';
         UI.unloadPlant();
+        s.startButton.classList = "";
+        s.stopButton.classList = "hidden";
         GardenApp.save();
     },
     updateClock: function() {
@@ -208,6 +208,8 @@ var timer = {
                 this.stopTime = timerEnd;
             }
             UI.loadPlant(this.active);
+            s.startButton.classList = "hidden";
+            s.stopButton.classList = "";
             this.run();
         }
     },

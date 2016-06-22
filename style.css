@@ -23,6 +23,16 @@ body {
     border: 1px solid #ccc;
     border-radius: 3px;
     padding: 10px;
+    min-width: 120px;
+}
+
+#timer button {
+    margin-bottom: 0.5em;
+}
+
+button.hidden {
+    opacity: 0;
+    display: none;
 }
 
 #time {
