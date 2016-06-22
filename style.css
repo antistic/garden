@@ -1,9 +1,12 @@
-html{
+html {
     height: 100%;
 }
 
-body {
+body * {
     font-family: Noto Sans, sans-serif;
+}
+
+body {
     font-size: 11pt;
     display: flex;
     justify-content: center;
@@ -30,6 +33,14 @@ body {
     margin-bottom: 0.5em;
 }
 
+button {
+    background-color: #fbfbfb;
+    border: 1px solid #cfd6e6;
+    border-radius: 2px;
+    color: #345;
+    padding: 3px 12px;
+}
+
 button.hidden {
     opacity: 0;
     display: none;
@@ -46,8 +57,7 @@ button.hidden {
 }
 
 #plant {
-    height: 256px;
-    width: 256px;
+    padding: 128px;
     background-size: auto 256px;
     display: inline-block;
     image-rendering: -webkit-optimize-contrast;
@@ -56,12 +66,12 @@ button.hidden {
     image-rendering:      pixelated;
     image-rendering:      crisp-edges;
     -ms-interpolation-mode: nearest-neigbor;
-    transition: opacity 1s, height 0.3s;
+    transition: opacity 1s, padding-top 0.3s;
 }
 
 #plant.hidden {
     opacity: 0;
-    height: 0;
+    padding: 0;
 }
 
 #garden {
