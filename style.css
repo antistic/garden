@@ -53,11 +53,12 @@ button.hidden {
 
 #plantDiv {
     text-align: center;
-    margin-bottom: 2em;
 }
 
 #plant {
-    padding: 128px;
+    padding-top: 256px;
+    padding-left: 256px;
+    margin-bottom: 5em;
     background-size: auto 256px;
     display: inline-block;
     image-rendering: -webkit-optimize-contrast;
@@ -72,6 +73,7 @@ button.hidden {
 #plant.hidden {
     opacity: 0;
     padding: 0;
+    margin: 0;
 }
 
 #garden {
