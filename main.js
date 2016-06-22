@@ -93,10 +93,18 @@ var UI = {
         });
     },
 
-    updatePlant: function(plantType, number) {
-        var path = "./imgs/plants/" + plantType + "/a/" + number + ".png"
-        this.vars.plantImg.src = path;
+    loadPlant: function(plantType) {
+        var path = "./imgs/plants/" + plantType + "/x.png";
+        this.vars.plantImg.style.backgroundImage = "url(" + path + ")";
         this.vars.plantImg.classList = "";
+    },
+
+    unloadPlant: function() {
+        this.vars.plantImg.classList = "hidden";
+    },
+
+    updatePlant: function(plantType, number) {
+        this.vars.plantImg.style.backgroundPosition = (number * -256) + "px";
     },
 
     toggleSettings: function() {
@@ -146,6 +154,7 @@ var timer = {
         this.stopTime = d + this.types[type] * this.minutesC;
         this.active = type;
         this.running = true;
+        UI.loadPlant(this.active);
 
         GardenApp.save();
         this.run();
@@ -165,6 +174,7 @@ var timer = {
         timer.stopTime = 0;
         this.running = false;
         s.timeText.textContent = '0:00';
+        UI.unloadPlant();
         GardenApp.save();
     },
     updateClock: function() {
@@ -197,6 +207,7 @@ var timer = {
             if (timerEnd != undefined) {
                 this.stopTime = timerEnd;
             }
+            UI.loadPlant(this.active);
             this.run();
         }
     },

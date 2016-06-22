@@ -37,13 +37,16 @@ body {
 
 #plant {
     height: 256px;
+    width: 256px;
+    background-size: auto 256px;
+    display: inline-block;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: -moz-crisp-edges;
     image-rendering:   -o-crisp-edges;
     image-rendering:      pixelated;
     image-rendering:      crisp-edges;
     -ms-interpolation-mode: nearest-neigbor;
-    transition: 0.5s all;
+    transition: opacity 1s, height 0.3s;
 }
 
 #plant.hidden {
