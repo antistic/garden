@@ -90,7 +90,7 @@ var UI = {
     },
 
     loadPlant: function(plantType) {
-        var path = "./imgs/plants/" + plantType + "/x.png";
+        var path = "./imgs/plants/" + plantType + ".png";
         this.vars.plantImg.style.backgroundImage = "url(" + path + ")";
         this.vars.plantImg.classList = "";
     },
