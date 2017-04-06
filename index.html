@@ -1,45 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="utf-8">
     <title>grow a garden</title>
-    <link rel="stylesheet" href="style.css" media="all">
-    <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
-</head>
-<body>
-    <div id="content">
-        <div id="plantDiv"><img id="plant" class="hidden"/></div>
-        <div id="timer-box">
-            <div id="timer">
-                <p id="time">0:00</p>
-                <button id="start">start</button>
-                <button id="stop" class="hidden">stop</button>
-            </div>
-        </div>
-        <div id="garden">
-            <div id="marks"></div>
-        </div>
-    </div>
-
-    <div id="settings" class="hidden">
-        <div>
-            <h2>settings</h2>
-            <ul>
-                <li> <label><input type="checkbox" id="mute"> muted</label> </li>
-                <li> <button id="reset">reset</button> </li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="footer">
-        <ul>
-            <li id="github"><a target="_blank" href="http://github.com/notantonia/garden"><img src="./imgs/github.png" alt="github"/></a></li>
-            <li id="settingsButton"><img src="./imgs/settings.png" alt="settings"/></li>
-        </ul>
-    </div>
-
-    <audio id="sound" src="./sounds/ding.wav" preload="auto"></audio>
-
-    <script src="./main.js"></script>
-</body>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/dist/build.js"></script>
+  </body>
 </html>
