@@ -1,2 +1,2 @@
-# [garden](http://notantonia.github.io/garden)
+# [garden](http://garden.antoniasiu.co.uk)
 make a garden from your pomodoros
