@@ -1,8 +1,6 @@
 <template>
   <div id="grow">
-    <img id="plant"
-      :style="plantStyle"
-    >
+    <div id="plant" :style="plantStyle"></div>
     <div id="timer">
       <p v-show="running">{{minutes}}:{{seconds}}</p>
       <p v-show="!running">0:00</p>
@@ -124,8 +122,10 @@ export default {
 
 #plant {
   background-size: auto 256px;
-  padding-top: 256px;
-  padding-left: 256px;
+  display: inline-block;
+  height: 256px;
+  width: 256px;
+  image-rendering: pixelated;
 }
 
 #timer {
