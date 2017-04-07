@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <grow></grow>
-    <settings v-show="showSettings === true" @hideSettings="showSettings = false"></settings>
+    <transition name="fade">
+      <settings v-show="showSettings === true" @hideSettings="showSettings = false"></settings>
+    </transition>
     <infoBar @showSettings="showSettings = true"></infoBar>
   </div>
 </template>
@@ -43,5 +45,13 @@ html, body {
   img {
     image-rendering: pixelated;
   }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

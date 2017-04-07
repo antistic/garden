@@ -1,12 +1,17 @@
 <template>
   <div id="grow">
-    <div id="plant" :style="plantStyle"></div>
+    <transition name="slide">
+      <div v-show="running || showLastFrame" id="plant" :style="plantStyle"></div>
+    </transition>
+
     <div id="timer">
       <p v-show="running">{{minutes}}:{{seconds}}</p>
       <p v-show="!running">0:00</p>
     </div>
+
     <button v-show="running" @click="stopTimer">stop</button>
     <button v-show="!running" @click="startTimer">start</button>
+
     <div id="pomodoros">
       <div class="pomodoro" v-for="p in pomodoros"></div>
     </div>
@@ -67,7 +72,7 @@ export default {
     plantStyle() {
       return {
         'background-image': `url(${this.plants[this.plantType].path})`,
-        'background-position': `${this.frame * -256}px`,
+        'background-position': `${this.frame * -256}px bottom`,
       }
     },
     pomodoros() {
@@ -98,6 +103,7 @@ export default {
       const delay = this.plants[this.plantType].time
       this.setStartTime(this.now)
       this.setEndTime(this.now + delay)
+      this.showLastFrame = false
       this.setRunning(true)
     },
     stopTimer() {
@@ -118,6 +124,15 @@ export default {
 <style lang="scss">
 #grow {
   text-align: center;
+
+  button {
+    font-size: 1.2em;
+    padding: 0.5em 1.2em;
+    color: #666;
+    background: #fafafa;
+    border: 1px solid #dadada;
+    border-radius: 3px;
+  }
 }
 
 #plant {
@@ -129,7 +144,12 @@ export default {
 }
 
 #timer {
-  font-size: 2.5em;
+  font-size: 4.5em;
+  p {
+    padding: 0;
+    margin: 0.2em 0;
+    color: #222;
+  }
 }
 
 #pomodoros {
@@ -142,5 +162,16 @@ export default {
     background-color: #EE2222;
     margin: 0 3px;
   }
+}
+
+.slide-enter-active, .slide-leave-active {
+  transition-duration: 0.5s;
+  transition-property: opacity, height, transform;
+}
+
+.slide-enter, .slide-leave-to {
+  opacity: 0;
+  height: 1px !important;
+  transform: translateY(-50vh);
 }
 </style>
