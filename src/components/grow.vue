@@ -1,39 +1,52 @@
 <template>
   <div id="grow">
-    <transition name="slide">
-      <div v-show="running || showLastFrame" id="plant" :style="plantStyle"></div>
-    </transition>
+    <taskSelect @goAction="startTimer"
+      v-show="!running && !ended"></taskSelect>
 
-    <div id="timer">
-      <p v-show="running">{{minutes}}:{{seconds}}</p>
-      <p v-show="!running">0:00</p>
-    </div>
+    <div id="countdown" v-show="running || ended">
+      <h1 v-show="taskName">I am {{ taskName }}</h1>
+      <transition name="slide">
+        <div v-show="running || ended" id="plant" :style="plantStyle"></div>
+      </transition>
 
-    <button v-show="running" @click="stopTimer">stop</button>
-    <button v-show="!running" @click="startTimer">start</button>
+      <div id="timer">
+        <p v-show="running">{{minutes}}:{{seconds}}</p>
+      </div>
 
-    <div id="pomodoros">
-      <div class="pomodoro" v-for="p in pomodoros"></div>
+      <button v-show="running" @click="stopTimer">stop</button>
+      <button v-show="ended" @click="newTimer">new</button>
+
+      <div id="pomodoros" v-if="pomodoros > 0">
+        <span>{{ pomodoros }}</span>
+        <div class="pomodoro"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import taskSelect from './taskSelect.vue'
+
 export default {
   name: 'grow',
+  components: {
+    taskSelect,
+  },
   data() {
     return {
+      taskName: '',
       // unix start & end time
       startTime: this.$local.get('GROW_STARTTIME') || 0,
       endTime: this.$local.get('GROW_ENDTIME') || 0,
       running: this.$local.get('GROW_RUNNING') || false,
       now: 0,
-      showLastFrame: false,
+      ended: false,
       plantType: 'tomato',
       plants: {
         tomato: {
           path: require('../assets/imgs/plants/tomato.png'),
-          time: 25 * 60 * 1000,
+          // time: 25 * 60 * 1000,
+          time: 10 * 1000,
           totalFrames: 25,
         },
       },
@@ -62,7 +75,7 @@ export default {
     },
     frame() {
       const plant = this.plants[this.plantType]
-      if (this.showLastFrame) return plant.totalFrames - 1
+      if (this.ended) return plant.totalFrames - 1
       if (this.running) {
         const amountDone = this.secondsLeft / (plant.time / 1000)
         return plant.totalFrames - Math.round(plant.totalFrames * amountDone)
@@ -97,23 +110,32 @@ export default {
       this.$local.set('GROW_RUNNING', bool)
     },
     // timer
-    startTimer() {
+    startTimer(taskName) {
       this.update()
+
+      this.taskName = taskName
 
       const delay = this.plants[this.plantType].time
       this.setStartTime(this.now)
       this.setEndTime(this.now + delay)
-      this.showLastFrame = false
+      this.ended = false
+      this.endedFull = false
       this.setRunning(true)
     },
     stopTimer() {
       this.setEndTime(this.now)
+      this.ended = true
       this.setRunning(false)
+      this.newTimer()
+    },
+    newTimer() {
+      this.ended = false
     },
     timeUp() {
       if (!this.$store.state.muted)
         this.$store.state.alertSound.play()
-      this.showLastFrame = true
+      this.ended = true
+      this.endedFull = true
       this.setRunning(false)
       this.$store.commit('addPomodoro')
     },
@@ -122,7 +144,7 @@ export default {
 </script>
 
 <style lang="scss">
-#grow {
+#countdown {
   text-align: center;
 
   button {
