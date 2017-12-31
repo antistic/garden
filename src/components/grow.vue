@@ -163,15 +163,4 @@ export default {
     margin: 0 3px;
   }
 }
-
-.slide-enter-active, .slide-leave-active {
-  transition-duration: 0.5s;
-  transition-property: opacity, height, transform;
-}
-
-.slide-enter, .slide-leave-to {
-  opacity: 0;
-  height: 1px !important;
-  transform: translateY(-50vh);
-}
 </style>

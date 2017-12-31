@@ -54,4 +54,15 @@ html, body {
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
+
+.slide-enter-active, .slide-leave-active {
+  transition-duration: 0.5s;
+  transition-property: opacity, height, transform;
+}
+
+.slide-enter, .slide-leave-to {
+  opacity: 0;
+  height: 1px !important;
+  transform: translateY(-50vh);
+}
 </style>
