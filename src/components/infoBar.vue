@@ -28,6 +28,8 @@ export default {
 </script>
 
 <style lang="scss">
+$imgSize: 30px;
+
 #infoBar {
   position: fixed;
   width: 100%;
@@ -43,14 +45,14 @@ export default {
       display: flex;
 
       img {
-        width: 20px;
-        height: 20px;
-        background-size: 20px 20px;
+        width: $imgSize;
+        height: $imgSize;
+        background-size: $imgSize $imgSize;
         box-sizing: border-box;
         cursor: pointer;
 
         &:active, &:focus {
-          padding-left: 20px;
+          padding-left: $imgSize;
         }
       }
 
