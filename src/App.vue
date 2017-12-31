@@ -2,7 +2,7 @@
   <div id="app">
     <grow></grow>
     <transition name="fade">
-      <settings v-show="showSettings === true" @hideSettings="showSettings = false"></settings>
+      <settings v-show="showSettings === true" @hideSettings="showSettings = false" />
     </transition>
     <infoBar @showSettings="showSettings = true"></infoBar>
   </div>
