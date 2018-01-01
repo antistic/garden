@@ -2,16 +2,22 @@
   <div id="countdown">
     <h1 v-show="taskName">{{ taskName }}</h1>
     <transition name="slide">
-      <div id="plant" :style="plantStyle"></div>
+      <div
+        id="plant"
+        :style="plantStyle" />
     </transition>
 
     <div id="timer">
-      <p v-show="running">{{minutes}}:{{seconds}}</p>
+      <p v-show="running">{{ minutes }}:{{ seconds }}</p>
       <p v-show="!running">0:00</p>
     </div>
 
-    <button v-show="running" @click="$emit('stopAction')">cancel</button>
-    <button v-show="!running" @click="$emit('newAction')">new</button>
+    <button
+      v-show="running"
+      @click="$emit('stopAction')">cancel</button>
+    <button
+      v-show="!running"
+      @click="$emit('newAction')">new</button>
 
     <pomodoroCounter />
   </div>
@@ -22,15 +28,24 @@ import pomodoroCounter from './pomodoroCounter.vue'
 import plants from './plants'
 
 export default {
-  name: 'countdown',
+  name: 'Countdown',
   components: {
     pomodoroCounter
   },
-  props: [
-    'secondsLeft',
-    'plantType',
-    'taskName',
-  ],
+  props: {
+    'seconds-left': {
+      type: Number,
+      default: 0
+    },
+    'plant-type': {
+      type: String,
+      default: ''
+    },
+    'task-name': {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       plants

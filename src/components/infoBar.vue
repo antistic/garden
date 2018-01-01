@@ -2,15 +2,21 @@
   <div id="infoBar">
     <ul>
       <li id="github">
-        <a target="_blank" href="http://github.com/notantonia/garden">
-          <img src="../assets/imgs/github.png" alt="github"/>
+        <a
+          target="_blank"
+          href="http://github.com/notantonia/garden">
+          <img
+            src="../assets/imgs/github.png"
+            alt="github">
         </a>
         <span>github</span>
       </li>
       <li id="settingsButton">
         <span>settings</span>
-        <img src="../assets/imgs/settings.png" alt="settings"
-          @click="showSettings"/>
+        <img
+          src="../assets/imgs/settings.png"
+          alt="settings"
+          @click="showSettings">
       </li>
     </ul>
   </div>
@@ -18,7 +24,7 @@
 
 <script>
 export default {
-  name: 'infoBar',
+  name: 'InfoBar',
   methods: {
     showSettings() {
       this.$emit('showSettings')

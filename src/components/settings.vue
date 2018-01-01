@@ -1,11 +1,13 @@
 <template>
-  <div id="settings" @click="hideSettings">
+  <div
+    id="settings"
+    @click="hideSettings">
     <div @click.stop>
       <h2>settings</h2>
       <ul>
         <li>
           <span>Timer sound: </span>
-          <button @click="toggleMute">{{muteButtonText}}</button>
+          <button @click="toggleMute">{{ muteButtonText }}</button>
         </li>
       </ul>
     </div>
@@ -14,7 +16,7 @@
 
 <script>
 export default {
-  name: 'settings',
+  name: 'Settings',
   computed: {
     muteButtonText() {
       return this.$store.state.muted ? 'Unmute' : 'Mute'

@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <grow></grow>
+    <grow />
     <transition name="fade">
-      <settings v-show="showSettings === true" @hideSettings="showSettings = false" />
+      <settings
+        v-show="showSettings === true"
+        @hideSettings="showSettings = false" />
     </transition>
-    <infoBar @showSettings="showSettings = true"></infoBar>
+    <infoBar @showSettings="showSettings = true" />
   </div>
 </template>
 
@@ -14,7 +16,7 @@ import infoBar from './components/infoBar.vue'
 import settings from './components/settings.vue'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     grow,
     infoBar,

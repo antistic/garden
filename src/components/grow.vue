@@ -5,9 +5,9 @@
       v-show="activeComponent === 'taskSelect'" />
 
     <countdown
-      :secondsLeft="secondsLeft"
-      :plantType="plantType"
-      :taskName="taskName"
+      :seconds-left="secondsLeft"
+      :plant-type="plantType"
+      :task-name="taskName"
       @stopAction="stopTimer"
       @newAction="newTimer"
       v-show="activeComponent === 'countdown'"/>
@@ -19,7 +19,7 @@ import growComponents from './growComponents'
 import plants from './growComponents/plants'
 
 export default {
-  name: 'grow',
+  name: 'Grow',
   components: growComponents,
   data() {
     return {
@@ -34,16 +34,16 @@ export default {
       running: false,
     }
   },
+  computed: {
+    secondsLeft() {
+      return Math.floor((this.endTime - this.now) / 1000)
+    },
+  },
   mounted() {
     this.updateNow()
     window.setInterval(() => {
       this.tick()
     }, 500)
-  },
-  computed: {
-    secondsLeft() {
-      return Math.floor((this.endTime - this.now) / 1000)
-    },
   },
   methods: {
     updateNow() {

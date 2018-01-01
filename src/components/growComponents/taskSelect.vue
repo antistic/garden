@@ -2,9 +2,12 @@
   <div class="taskSelect">
     <div class="select">
       <h1>I want to&nbsp;</h1>
-      <input type="text" placeholder="save the world" size="18"
-       v-model="taskInput"
-       @keyup.enter="submit"/>
+      <input
+        type="text"
+        placeholder="save the world"
+        size="18"
+        v-model="taskInput"
+        @keyup.enter="submit">
       <h1>.</h1>
       <button @click="submit">→</button>
     </div>
@@ -13,7 +16,7 @@
 
 <script>
 export default {
-  name: 'taskSelect',
+  name: 'TaskSelect',
   data() {
     return {
       taskInput: ''

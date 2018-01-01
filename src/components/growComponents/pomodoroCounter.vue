@@ -1,13 +1,15 @@
 <template>
-  <div id="pomodoros" v-if="pomodoros > 0">
+  <div
+    id="pomodoros"
+    v-if="pomodoros > 0">
     <span>{{ pomodoros }}</span>
-    <div class="pomodoro"></div>
+    <div class="pomodoro" />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'pomodoroCounter',
+  name: 'PomodoroCounter',
   computed: {
     pomodoros() {
       return this.$store.state.pomodoros
