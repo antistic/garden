@@ -1,102 +1,58 @@
 <template>
   <div id="grow">
-    <taskSelect @goAction="startTimer"
-      v-show="!running && !ended"></taskSelect>
+    <taskSelect
+      @goAction="startTimer"
+      v-show="activeComponent === 'taskSelect'" />
 
-    <div id="countdown" v-show="running || ended">
-      <h1 v-show="taskName">I am {{ taskName }}</h1>
-      <transition name="slide">
-        <div v-show="running || ended" id="plant" :style="plantStyle"></div>
-      </transition>
-
-      <div id="timer">
-        <p v-show="running">{{minutes}}:{{seconds}}</p>
-      </div>
-
-      <button v-show="running" @click="stopTimer">stop</button>
-      <button v-show="ended" @click="newTimer">new</button>
-
-      <div id="pomodoros" v-if="pomodoros > 0">
-        <span>{{ pomodoros }}</span>
-        <div class="pomodoro"></div>
-      </div>
-    </div>
+    <countdown
+      :secondsLeft="secondsLeft"
+      :plantType="plantType"
+      :taskName="taskName"
+      @stopAction="stopTimer"
+      @newAction="newTimer"
+      v-show="activeComponent === 'countdown'"/>
   </div>
 </template>
 
 <script>
-import taskSelect from './taskSelect.vue'
+import growComponents from './growComponents'
+import plants from './growComponents/plants'
 
 export default {
   name: 'grow',
-  components: {
-    taskSelect,
-  },
+  components: growComponents,
   data() {
     return {
+      activeComponent: 'taskSelect',
       taskName: '',
+      plantType: 'tomato',
+      plants,
       // unix start & end time
       startTime: this.$local.get('GROW_STARTTIME') || 0,
       endTime: this.$local.get('GROW_ENDTIME') || 0,
-      running: this.$local.get('GROW_RUNNING') || false,
       now: 0,
-      ended: false,
-      plantType: 'tomato',
-      plants: {
-        tomato: {
-          path: require('../assets/imgs/plants/tomato.png'),
-          // time: 25 * 60 * 1000,
-          time: 10 * 1000,
-          totalFrames: 25,
-        },
-      },
+      running: false,
     }
   },
   mounted() {
-    this.update()
-    if (this.secondsLeft <= 0) this.running = false
+    this.updateNow()
     window.setInterval(() => {
-      if (this.running) {
-        this.update()
-        if (this.secondsLeft <= 0) this.timeUp()
-      }
+      this.tick()
     }, 500)
   },
   computed: {
     secondsLeft() {
       return Math.floor((this.endTime - this.now) / 1000)
     },
-    minutes() {
-      return Math.floor(this.secondsLeft / 60)
-    },
-    seconds() {
-      const secs = Math.floor(this.secondsLeft % 60)
-      return (secs < 10 ? '0' : '') + secs
-    },
-    frame() {
-      const plant = this.plants[this.plantType]
-      if (this.ended) return plant.totalFrames - 1
-      if (this.running) {
-        const amountDone = this.secondsLeft / (plant.time / 1000)
-        return plant.totalFrames - Math.round(plant.totalFrames * amountDone)
-      }
-      return 0
-    },
-    plantStyle() {
-      return {
-        'background-image': `url(${this.plants[this.plantType].path})`,
-        'background-position': `${this.frame * -256}px bottom`,
-      }
-    },
-    pomodoros() {
-      return this.$store.state.pomodoros
-    },
   },
   methods: {
-    update() {
+    updateNow() {
       this.now = (new Date()).getTime()
     },
     // setters
+    switchTo(component) {
+      this.activeComponent = component
+    },
     setStartTime(time) {
       this.startTime = time
       this.$local.set('GROW_STARTTIME', time)
@@ -110,79 +66,36 @@ export default {
       this.$local.set('GROW_RUNNING', bool)
     },
     // timer
+    tick() {
+      this.updateNow()
+      if (this.running && this.secondsLeft <= 0) this.timeUp()
+    },
     startTimer(taskName) {
-      this.update()
+      this.updateNow()
 
       this.taskName = taskName
 
       const delay = this.plants[this.plantType].time
       this.setStartTime(this.now)
-      this.setEndTime(this.now + delay)
-      this.ended = false
-      this.endedFull = false
+      this.setEndTime(this.now + delay + 500)
       this.setRunning(true)
+
+      this.switchTo('countdown')
     },
     stopTimer() {
       this.setEndTime(this.now)
-      this.ended = true
       this.setRunning(false)
       this.newTimer()
     },
     newTimer() {
-      this.ended = false
+      this.switchTo('taskSelect')
     },
     timeUp() {
       if (!this.$store.state.muted)
         this.$store.state.alertSound.play()
-      this.ended = true
-      this.endedFull = true
       this.setRunning(false)
       this.$store.commit('addPomodoro')
     },
   },
 }
 </script>
-
-<style lang="scss">
-#countdown {
-  text-align: center;
-
-  button {
-    font-size: 1.2em;
-    padding: 0.5em 1.2em;
-    color: #666;
-    background: #fafafa;
-    border: 1px solid #dadada;
-    border-radius: 3px;
-  }
-}
-
-#plant {
-  background-size: auto 256px;
-  display: inline-block;
-  height: 256px;
-  width: 256px;
-  image-rendering: pixelated;
-}
-
-#timer {
-  font-size: 4.5em;
-  p {
-    padding: 0;
-    margin: 0.2em 0;
-    color: #222;
-  }
-}
-
-#pomodoros {
-  margin-top: 1em;
-  .pomodoro {
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    display: inline-block;
-    background-color: #EE2222;
-    margin: 0 3px;
-  }
-}
-</style>

@@ -1,8 +1,8 @@
 <template>
   <div class="taskSelect">
     <div class="select">
-      <h1>I want to be&nbsp;</h1>
-      <input type="text" placeholder="saving the world" size="18"
+      <h1>I want to&nbsp;</h1>
+      <input type="text" placeholder="save the world" size="18"
        v-model="taskInput"
        @keyup.enter="submit"/>
       <h1>.</h1>
