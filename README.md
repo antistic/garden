@@ -1,2 +1,2 @@
-# [garden](http://garden.antoniasiu.co.uk)
+# [garden](http://antoniasiu.co.uk/garden)
 make a garden from your pomodoros
