@@ -83,7 +83,8 @@ export default {
 
 <style lang="scss">
 #countdown {
-  text-align: center;
+  @include flex-center;
+  flex-flow: column nowrap;
 
   button {
     font-size: 1.2em;

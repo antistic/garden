@@ -15,8 +15,8 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
-            scss: 'vue-style-loader!css-loader!sass-loader',
-            sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+            scss: 'vue-style-loader!css-loader!sass-loader?data=@import "./src/globals";',
+            sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax&data=@import "./src/globals"',
           },
           postcss: [require('autoprefixer')()],
         },

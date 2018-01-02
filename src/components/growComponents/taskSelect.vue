@@ -35,11 +35,10 @@ export default {
   text-align: center;
 
   .select {
-    display: flex;
-    flex-flow: row wrap;
-    font-size: 2rem;
+    @include flex-center;
     align-items: baseline;
-    justify-content: center;
+
+    font-size: 2rem;
 
     input[type=text] {
       padding: 0;

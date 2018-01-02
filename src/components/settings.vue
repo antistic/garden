@@ -41,9 +41,7 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 
   div {
     background-color: #fff;
