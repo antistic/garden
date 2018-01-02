@@ -6,8 +6,12 @@
       <h2>settings</h2>
       <ul>
         <li>
-          <span>Timer sound: </span>
-          <button @click="toggleMute">{{ muteButtonText }}</button>
+          <input
+            id="mute"
+            type="checkbox"
+            @change="$store.commit('toggleMute')"
+            :checked="$store.state.muted">
+          <label for="mute">Mute</label>
         </li>
       </ul>
     </div>
@@ -17,17 +21,9 @@
 <script>
 export default {
   name: 'Settings',
-  computed: {
-    muteButtonText() {
-      return this.$store.state.muted ? 'Unmute' : 'Mute'
-    },
-  },
   methods: {
     hideSettings() {
       this.$emit('hideSettings')
-    },
-    toggleMute() {
-      this.$store.commit('toggleMute')
     },
   },
 }
