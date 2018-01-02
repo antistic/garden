@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "serve": "python -m http.server"
+    "serve": "python -m http.server",
+    "lint": "eslint --ext .js,.vue --fix src webpack.config.js"
   },
   "dependencies": {
     "vue": "^2.2.1",
