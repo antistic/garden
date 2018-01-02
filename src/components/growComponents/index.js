@@ -3,5 +3,5 @@ import countdown from './countdown.vue'
 
 export default {
   taskSelect,
-  countdown
+  countdown,
 }

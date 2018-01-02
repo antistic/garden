@@ -30,25 +30,25 @@ import plants from './plants'
 export default {
   name: 'Countdown',
   components: {
-    pomodoroCounter
+    pomodoroCounter,
   },
   props: {
     'seconds-left': {
       type: Number,
-      default: 0
+      default: 0,
     },
     'plant-type': {
       type: String,
-      default: ''
+      default: '',
     },
     'task-name': {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data() {
     return {
-      plants
+      plants,
     }
   },
   computed: {

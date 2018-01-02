@@ -91,8 +91,9 @@ export default {
       this.switchTo('taskSelect')
     },
     timeUp() {
-      if (!this.$store.state.muted)
+      if (!this.$store.state.muted) {
         this.$store.state.alertSound.play()
+      }
       this.setRunning(false)
       this.$store.commit('addPomodoro')
     },

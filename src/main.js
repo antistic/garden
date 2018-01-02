@@ -5,7 +5,7 @@ import local from './local'
 
 Vue.prototype.$local = local
 
-new Vue({
+export default new Vue({
   el: '#app',
   store,
   render: h => h(App),

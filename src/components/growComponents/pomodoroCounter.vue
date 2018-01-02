@@ -14,7 +14,7 @@ export default {
     pomodoros() {
       return this.$store.state.pomodoros
     },
-  }
+  },
 }
 </script>
 

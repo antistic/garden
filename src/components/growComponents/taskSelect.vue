@@ -19,14 +19,14 @@ export default {
   name: 'TaskSelect',
   data() {
     return {
-      taskInput: ''
+      taskInput: '',
     }
   },
   methods: {
     submit() {
       this.$emit('goAction', this.taskInput)
-    }
-  }
+    },
+  },
 }
 </script>
 
