@@ -40,6 +40,7 @@ $imgSize: 30px;
   position: fixed;
   width: 100%;
   bottom: 0;
+  pointer-events:none;
 
   ul {
     margin: 0;
@@ -49,6 +50,7 @@ $imgSize: 30px;
 
     li {
       display: flex;
+      pointer-events: auto;
 
       img {
         width: $imgSize;
