@@ -38,6 +38,7 @@ export default {
       endTime: this.$local.get('GROW_ENDTIME') || 0,
       now: 0,
       running: false,
+      ringID: null,
     }
   },
   computed: {
@@ -94,14 +95,28 @@ export default {
       this.newTimer()
     },
     newTimer() {
+      window.clearInterval(this.ringID)
       this.switchTo('taskSelect')
     },
     timeUp() {
-      if (!this.$store.state.muted) {
-        this.$store.state.alertSound.play()
-      }
+      this.ringUntilNew()
+
       this.setRunning(false)
       this.$store.commit('addPomodoro')
+    },
+    ringUntilNew() {
+      const { state } = this.$store
+      const that = this
+      function ring() {
+        if (!state.muted) {
+          state.alertSound.play()
+        }
+
+        const interval = state.ringInterval * 1000
+        that.ringID = window.setTimeout(ring, interval)
+      }
+
+      ring()
     },
   },
 }

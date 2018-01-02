@@ -4,7 +4,7 @@
     @click="hideSettings">
     <div @click.stop>
       <h2>settings</h2>
-      <ul>
+      <ul id="setting-list">
         <li>
           <input
             id="mute"
@@ -12,6 +12,29 @@
             @change="$store.commit('toggleMute')"
             :checked="$store.state.muted">
           <label for="mute">Mute</label>
+        </li>
+        <li>
+          <input
+            id="keepRinging"
+            type="checkbox"
+            @change="$store.commit('toggleRinging')"
+            :checked="$store.state.ringing">
+          <label for="keepRinging">Keep ringing after timer is up</label>
+          <ul>
+            <li>
+              <label for="ringInterval">
+                every
+                <input
+                  id="ringInterval"
+                  class="short"
+                  type="number"
+                  @change="$store.commit('setRingingInterval', ringInterval)"
+                  v-model="ringInterval">
+                seconds
+              </label>
+              <p class="info">(changes after next ring)</p>
+            </li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -21,6 +44,11 @@
 <script>
 export default {
   name: 'Settings',
+  data() {
+    return {
+      ringInterval: this.$store.state.ringInterval,
+    }
+  },
   methods: {
     hideSettings() {
       this.$emit('hideSettings')
@@ -48,7 +76,7 @@ export default {
       margin: 0;
     }
 
-    ul {
+    #setting-list {
       padding: 0;
       margin: 0;
       margin-top: 2em;
@@ -57,6 +85,17 @@ export default {
         display: inline-block;
       }
     }
+  }
+
+  input[type=number].short {
+    width: 3em;
+  }
+
+  p.info {
+    color: #aaa;
+    margin: 0;
+    padding: 0;
+    font-size: 0.5em;
   }
 }
 </style>
