@@ -10,12 +10,8 @@
       <p v-show="!running">0:00</p>
     </div>
 
-    <button
-      v-show="running"
-      @click="$emit('stopAction')">cancel</button>
-    <button
-      v-show="!running"
-      @click="$emit('newAction')">new</button>
+    <button v-show="running" @click="$emit('stopAction')">cancel</button>
+    <button v-show="!running" @click="$emit('newAction')">new</button>
 
     <pomodoroCounter />
   </div>
