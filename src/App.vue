@@ -39,11 +39,6 @@ html, body {
 }
 
 #app {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   img {
     image-rendering: pixelated;
   }
@@ -53,8 +48,13 @@ html, body {
   transition: opacity .3s;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter, .fade-leave-to,
+.fade-slow-enter, .fade-slow-leave-to {
   opacity: 0;
+}
+
+.fade-slow-enter-active, .fade-slow-leave-active {
+  transition: opacity 0.4s;
 }
 
 .slide-enter-active, .slide-leave-active {
@@ -64,7 +64,6 @@ html, body {
 
 .slide-enter, .slide-leave-to {
   opacity: 0;
-  height: 1px !important;
   transform: translateY(-50vh);
 }
 </style>

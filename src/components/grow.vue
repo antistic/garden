@@ -1,16 +1,22 @@
 <template>
   <div id="grow">
-    <taskSelect
-      @goAction="startTimer"
-      v-show="activeComponent === 'taskSelect'" />
+    <transition name="slide">
+      <taskSelect
+        class="child"
+        @goAction="startTimer"
+        v-show="activeComponent === 'taskSelect'" />
+    </transition>
 
-    <countdown
-      :seconds-left="secondsLeft"
-      :plant-type="plantType"
-      :task-name="taskName"
-      @stopAction="stopTimer"
-      @newAction="newTimer"
-      v-show="activeComponent === 'countdown'"/>
+    <transition name="fade-slow">
+      <countdown
+        class="child"
+        :seconds-left="secondsLeft"
+        :plant-type="plantType"
+        :task-name="taskName"
+        @stopAction="stopTimer"
+        @newAction="newTimer"
+        v-show="activeComponent === 'countdown'"/>
+    </transition>
   </div>
 </template>
 
@@ -100,3 +106,17 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+#grow {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  .child {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+  }
+}
+</style>

@@ -32,7 +32,7 @@ export default {
 
 <style lang="scss">
 .taskSelect {
-  text-align: center;
+  @include flex-center;
 
   .select {
     @include flex-center;

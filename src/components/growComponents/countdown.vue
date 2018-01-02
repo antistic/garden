@@ -1,11 +1,9 @@
 <template>
   <div id="countdown">
     <h1 v-show="taskName">{{ taskName }}</h1>
-    <transition name="slide">
-      <div
-        id="plant"
-        :style="plantStyle" />
-    </transition>
+    <div
+      id="plant"
+      :style="plantStyle" />
 
     <div id="timer">
       <p v-show="running">{{ minutes }}:{{ seconds }}</p>
