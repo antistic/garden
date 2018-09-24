@@ -6,6 +6,7 @@
         type="text"
         placeholder="save the world"
         size="18"
+        autofocus
         v-model="taskInput"
         @keyup.enter="submit">
       <h1>.</h1>
