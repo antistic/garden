@@ -9,13 +9,13 @@
 
 <script>
 export default {
-  name: 'PomodoroCounter',
+  name: "PomodoroCounter",
   computed: {
     pomodoros() {
-      return this.$store.state.pomodoros
-    },
-  },
-}
+      return this.$shared.state.pomodoros;
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -26,7 +26,7 @@ export default {
     height: 10px;
     border-radius: 10px;
     display: inline-block;
-    background-color: #EE2222;
+    background-color: $red;
     margin: 0 3px;
   }
 }

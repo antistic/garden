@@ -1,7 +1,7 @@
-import taskSelect from './taskSelect.vue'
-import countdown from './countdown.vue'
+import taskSelect from "./taskSelect.vue";
+import countdown from "./countdown.vue";
 
 export default {
   taskSelect,
-  countdown,
-}
+  countdown
+};

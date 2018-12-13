@@ -21,105 +21,105 @@
 </template>
 
 <script>
-import growComponents from './growComponents'
-import plants from './growComponents/plants'
+import growComponents from "./growComponents";
+import plants from "./growComponents/plants";
 
 export default {
-  name: 'Grow',
+  name: "Grow",
   components: growComponents,
   data() {
     return {
-      activeComponent: 'taskSelect',
-      taskName: '',
-      plantType: 'tomato',
+      activeComponent: "taskSelect",
+      taskName: "",
+      plantType: "tomato",
       plants,
       // unix start & end time
-      startTime: this.$local.get('GROW_STARTTIME') || 0,
-      endTime: this.$local.get('GROW_ENDTIME') || 0,
+      startTime: this.$local.get("GROW_STARTTIME") || 0,
+      endTime: this.$local.get("GROW_ENDTIME") || 0,
       now: 0,
       running: false,
-      ringID: null,
-    }
+      ringID: null
+    };
   },
   computed: {
     secondsLeft() {
-      return Math.floor((this.endTime - this.now) / 1000)
-    },
+      return Math.floor((this.endTime - this.now) / 1000);
+    }
   },
   mounted() {
-    this.updateNow()
+    this.updateNow();
     window.setInterval(() => {
-      this.tick()
-    }, 500)
+      this.tick();
+    }, 500);
   },
   methods: {
     updateNow() {
-      this.now = (new Date()).getTime()
+      this.now = new Date().getTime();
     },
     // setters
     switchTo(component) {
-      this.activeComponent = component
+      this.activeComponent = component;
     },
     setStartTime(time) {
-      this.startTime = time
-      this.$local.set('GROW_STARTTIME', time)
+      this.startTime = time;
+      this.$local.set("GROW_STARTTIME", time);
     },
     setEndTime(time) {
-      this.endTime = time
-      this.$local.set('GROW_ENDTIME', time)
+      this.endTime = time;
+      this.$local.set("GROW_ENDTIME", time);
     },
     setRunning(bool) {
-      this.running = bool
-      this.$local.set('GROW_RUNNING', bool)
+      this.running = bool;
+      this.$local.set("GROW_RUNNING", bool);
     },
     // timer
     tick() {
-      this.updateNow()
-      if (this.running && this.secondsLeft <= 0) this.timeUp()
+      this.updateNow();
+      if (this.running && this.secondsLeft <= 0) this.timeUp();
     },
-    startTimer(taskName) {
-      this.updateNow()
+    startTimer(taskName, minutes) {
+      this.updateNow();
 
-      this.taskName = taskName
+      this.taskName = taskName;
 
-      const delay = this.plants[this.plantType].time
-      this.setStartTime(this.now)
-      this.setEndTime(this.now + delay + 500)
-      this.setRunning(true)
+      const delay = minutes * 60 * 1000;
+      this.setStartTime(this.now);
+      this.setEndTime(this.now + delay + 500);
+      this.setRunning(true);
 
-      this.switchTo('countdown')
+      this.switchTo("countdown");
     },
     stopTimer() {
-      this.setEndTime(this.now)
-      this.setRunning(false)
-      this.newTimer()
+      this.setEndTime(this.now);
+      this.setRunning(false);
+      this.newTimer();
     },
     newTimer() {
-      window.clearInterval(this.ringID)
-      this.switchTo('taskSelect')
+      window.clearInterval(this.ringID);
+      this.switchTo("taskSelect");
     },
     timeUp() {
-      this.ringUntilNew()
+      this.ringUntilNew();
 
-      this.setRunning(false)
-      this.$store.commit('addPomodoro')
+      this.setRunning(false);
+      this.$shared.addPomodoro;
     },
     ringUntilNew() {
-      const { state } = this.$store
-      const that = this
+      const { state } = this.$shared;
+      const that = this;
       function ring() {
         if (!state.muted) {
-          state.alertSound.play()
+          state.alertSound.play();
         }
 
-        const interval = state.ringInterval * 1000
-        that.ringID = window.setTimeout(ring, interval)
+        const interval = state.ringInterval * 1000;
+        that.ringID = window.setTimeout(ring, interval);
       }
 
-      ring()
-    },
-  },
-}
+      ring();
+    }
+  }
+};
 </script>
 
 <style lang="scss">

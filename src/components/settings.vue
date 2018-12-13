@@ -9,16 +9,16 @@
           <input
             id="mute"
             type="checkbox"
-            @change="$store.commit('toggleMute')"
-            :checked="$store.state.muted">
+            @change="$shared.toggleMute"
+            :checked="$shared.state.muted">
           <label for="mute">Mute</label>
         </li>
         <li>
           <input
             id="keepRinging"
             type="checkbox"
-            @change="$store.commit('toggleRinging')"
-            :checked="$store.state.ringing">
+            @change="$shared.toggleRinging"
+            :checked="$shared.state.ringing">
           <label for="keepRinging">Keep ringing after timer is up</label>
           <ul>
             <li>
@@ -28,7 +28,7 @@
                   id="ringInterval"
                   class="short"
                   type="number"
-                  @change="$store.commit('setRingingInterval', ringInterval)"
+                  @change="$shared.setRingInterval(ringInterval)"
                   v-model="ringInterval">
                 seconds
               </label>
@@ -43,18 +43,18 @@
 
 <script>
 export default {
-  name: 'Settings',
+  name: "Settings",
   data() {
     return {
-      ringInterval: this.$store.state.ringInterval,
-    }
+      ringInterval: this.$shared.state.ringInterval
+    };
   },
   methods: {
     hideSettings() {
-      this.$emit('hideSettings')
-    },
-  },
-}
+      this.$emit("hideSettings");
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -87,7 +87,7 @@ export default {
     }
   }
 
-  input[type=number].short {
+  input[type="number"].short {
     width: 3em;
   }
 
