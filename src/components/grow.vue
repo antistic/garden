@@ -13,8 +13,10 @@
         :seconds-left="secondsLeft"
         :plant-type="plantType"
         :task-name="taskName"
-        @stopAction="stopTimer"
-        @newAction="newTimer"
+        :is-break="isBreak"
+        @addTime="addTime"
+        @takeBreak="takeBreak"
+        @newTask="newTimer"
         v-show="activeComponent === 'countdown'"/>
     </transition>
   </div>
@@ -31,6 +33,7 @@ export default {
     return {
       activeComponent: "taskSelect",
       taskName: "",
+      isBreak: false,
       plantType: "tomato",
       plants,
       // unix start & end time
@@ -77,10 +80,11 @@ export default {
       this.updateNow();
       if (this.running && this.secondsLeft <= 0) this.timeUp();
     },
-    startTimer(taskName, minutes) {
+    startTimer(taskName, minutes, isBreak = false) {
       this.updateNow();
 
       this.taskName = taskName;
+      this.isBreak = isBreak;
 
       const delay = minutes * 60 * 1000;
       this.setStartTime(this.now);
@@ -92,11 +96,15 @@ export default {
     stopTimer() {
       this.setEndTime(this.now);
       this.setRunning(false);
-      this.newTimer();
+      window.clearInterval(this.ringID);
     },
     newTimer() {
-      window.clearInterval(this.ringID);
+      this.stopTimer();
       this.switchTo("taskSelect");
+    },
+    addTime(minutes) {
+      window.clearInterval(this.ringID);
+      this.setEndTime(Math.max(this.endTime, this.now) + minutes * 60 * 1000);
     },
     timeUp() {
       this.ringUntilNew();
@@ -117,6 +125,10 @@ export default {
       }
 
       ring();
+    },
+    takeBreak() {
+      this.stopTimer();
+      this.startTimer("take a break", 5, true);
     }
   }
 };

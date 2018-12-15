@@ -1,93 +1,103 @@
 <template>
   <div id="countdown">
     <h1 v-show="taskName">{{ taskName }}</h1>
-    <div
-      id="plant"
-      :style="plantStyle" />
 
     <div id="timer">
       <p v-show="running">{{ minutes }}:{{ seconds }}</p>
       <p v-show="!running">0:00</p>
     </div>
 
-    <button v-show="running" @click="$emit('stopAction')">cancel</button>
-    <button v-show="!running" @click="$emit('newAction')">new</button>
+    <div class="addTimeButtons">
+      <button class="minuteSelection" @click="$emit('addTime', 1)">+1</button>
+      <button v-show="!isBreak" class="minuteSelection" @click="$emit('addTime', 5)">+5</button>
+      <button v-show="!isBreak" class="minuteSelection" @click="$emit('addTime', 15)">+15</button>
+    </div>
+
+    <div class="whenFinished" v-show="!running">
+      <button
+        @click="$emit('takeBreak')"
+        v-show="!isBreak"
+      >
+        take break
+      </button>
+      <button
+        @click="$emit('newTask')"
+        v-show="isBreak"
+      >
+        new task
+      </button>
+    </div>
 
     <pomodoroCounter />
   </div>
 </template>
 
 <script>
-import pomodoroCounter from './pomodoroCounter.vue'
-import plants from './plants'
+import pomodoroCounter from "./pomodoroCounter.vue";
+import plants from "./plants";
 
 export default {
-  name: 'Countdown',
+  name: "Countdown",
   components: {
-    pomodoroCounter,
+    pomodoroCounter
   },
   props: {
-    'seconds-left': {
+    "seconds-left": {
       type: Number,
-      default: 0,
+      default: 0
     },
-    'plant-type': {
+    "plant-type": {
       type: String,
-      default: '',
+      default: ""
     },
-    'task-name': {
+    "task-name": {
       type: String,
-      default: '',
+      default: ""
     },
+    "is-break": {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
-      plants,
-    }
+      plants
+    };
   },
   computed: {
     minutes() {
-      return Math.floor(this.secondsLeft / 60)
+      return Math.floor(this.secondsLeft / 60);
     },
     seconds() {
-      const secs = Math.floor(this.secondsLeft % 60)
-      return (secs < 10 ? '0' : '') + secs
+      const secs = Math.floor(this.secondsLeft % 60);
+      return (secs < 10 ? "0" : "") + secs;
     },
     running() {
-      return this.secondsLeft > 0
+      return this.secondsLeft > 0;
     },
     frame() {
-      const plant = this.plants[this.plantType]
-      if (this.ended) return plant.totalFrames - 1
+      const plant = this.plants[this.plantType];
+      if (this.ended) return plant.totalFrames - 1;
       if (this.running) {
-        const amountDone = this.secondsLeft / (plant.time / 1000)
-        return plant.totalFrames - Math.round(plant.totalFrames * amountDone)
+        const amountDone = this.secondsLeft / (plant.time / 1000);
+        return plant.totalFrames - Math.round(plant.totalFrames * amountDone);
       }
-      return 0
+      return 0;
     },
     plantStyle() {
       return {
-        'background-image': `url(${this.plants[this.plantType].path})`,
-        'background-position': `${this.frame * -256}px bottom`,
-      }
-    },
-  },
-}
+        "background-image": `url(${this.plants[this.plantType].path})`,
+        "background-position": `${this.frame * -256}px bottom`
+      };
+    }
+  }
+};
 </script>
 
 <style lang="scss">
 #countdown {
   @include flex-center;
   flex-flow: column nowrap;
-
-  button {
-    font-size: 1.2em;
-    padding: 0.5em 1.2em;
-    color: #666;
-    background: #fafafa;
-    border: 1px solid #dadada;
-    border-radius: 3px;
-  }
 }
 
 #plant {
@@ -99,11 +109,20 @@ export default {
 }
 
 #timer {
-  font-size: 4.5em;
+  font-size: 7em;
   p {
     padding: 0;
     margin: 0.2em 0;
-    color: #222;
   }
+}
+
+.addTimeButtons {
+  font-size: 1.1rem;
+}
+
+.whenFinished button {
+  font-size: 1.2em;
+  padding: 0.4em 1em;
+  cursor: pointer;
 }
 </style>

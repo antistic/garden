@@ -15,9 +15,9 @@
       </div>
       <div>
         <div class="buttons">
-          <button @click="go(5)">5</button>
-          <button @click="go(25)">25</button>
-          <button @click="go(50)">50</button>
+          <button class="minuteSelection" @click="go(5)">5</button>
+          <button class="minuteSelection" @click="go(25)">25</button>
+          <button class="minuteSelection" @click="go(50)">50</button>
         </div>
         <h1>minutes.</h1>
       </div>
@@ -69,32 +69,10 @@ export default {
         margin: 0;
         padding: 0;
       }
-    }
-  }
 
-  .buttons {
-    margin-right: 0.5em;
-
-    button {
-      margin: 1em 0.25em;
-
-      font-size: 1.5rem;
-      line-height: calc(2.5em - 4px);
-      width: 2.5em;
-      height: 2.5em;
-
-      border-radius: 5em;
-      border: 4px solid $red;
-      background-color: $red;
-      color: white;
-
-      cursor: pointer;
-      transition: 0.15s all ease-in-out;
-
-      &:active,
-      &:focus,
-      &:hover {
-        border-color: black;
+      .buttons {
+        margin-right: 0.5em;
+        font-size: 1.1rem;
       }
     }
   }
