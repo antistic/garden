@@ -24,13 +24,13 @@
 
 <script>
 export default {
-  name: 'InfoBar',
+  name: "InfoBar",
   methods: {
     showSettings() {
-      this.$emit('showSettings')
-    },
-  },
-}
+      this.$emit("showSettings");
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -40,7 +40,7 @@ $imgSize: 30px;
   position: fixed;
   width: 100%;
   bottom: 0;
-  pointer-events:none;
+  pointer-events: none;
 
   ul {
     margin: 0;
@@ -59,7 +59,8 @@ $imgSize: 30px;
         box-sizing: border-box;
         cursor: pointer;
 
-        &:active, &:focus {
+        &:active,
+        &:focus {
           padding-left: $imgSize;
         }
       }
@@ -79,11 +80,10 @@ $imgSize: 30px;
 }
 
 #github a img {
-  background: url("../assets/imgs/github-pressed.png")
+  background: url("../assets/imgs/github-pressed.png");
 }
 
 #settingsButton img {
-  background: url("../assets/imgs/settings-pressed.png")
+  background: url("../assets/imgs/settings-pressed.png");
 }
-
 </style>

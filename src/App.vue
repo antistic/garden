@@ -11,31 +11,33 @@
 </template>
 
 <script>
-import grow from './components/grow.vue'
-import infoBar from './components/infoBar.vue'
-import settings from './components/settings.vue'
+import grow from "./components/grow.vue";
+import infoBar from "./components/infoBar.vue";
+import settings from "./components/settings.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     grow,
     infoBar,
-    settings,
+    settings
   },
   data() {
     return {
-      showSettings: false,
-    }
-  },
-}
+      showSettings: false
+    };
+  }
+};
 </script>
 
 <style lang="scss">
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: 'Noto Sans', 'San Francisco', 'Helvetica Neue', 'Calibri Light', 'sans-serif';
+  font-family: "Noto Sans", "San Francisco", "Helvetica Neue", "Calibri Light",
+    "sans-serif";
 }
 
 #app {
@@ -44,25 +46,31 @@ html, body {
   }
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .3s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
 }
 
-.fade-enter, .fade-leave-to,
-.fade-slow-enter, .fade-slow-leave-to {
+.fade-enter,
+.fade-leave-to,
+.fade-slow-enter,
+.fade-slow-leave-to {
   opacity: 0;
 }
 
-.fade-slow-enter-active, .fade-slow-leave-active {
+.fade-slow-enter-active,
+.fade-slow-leave-active {
   transition: opacity 0.4s;
 }
 
-.slide-enter-active, .slide-leave-active {
+.slide-enter-active,
+.slide-leave-active {
   transition-duration: 0.5s;
   transition-property: opacity, height, transform;
 }
 
-.slide-enter, .slide-leave-to {
+.slide-enter,
+.slide-leave-to {
   opacity: 0;
   transform: translateY(-50vh);
 }
