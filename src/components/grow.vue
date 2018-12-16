@@ -145,9 +145,9 @@ export default {
 
       ring();
     },
-    takeBreak() {
+    takeBreak(minutes) {
       this.stopTimer();
-      this.startTimer("take a break", 5, true);
+      this.startTimer("take a break", minutes, true);
     }
   }
 };

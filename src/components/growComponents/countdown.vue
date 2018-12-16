@@ -10,9 +10,15 @@
       <button v-show="!isBreak" class="minuteSelection" @click="$emit('addTime', 15)">+15</button>
     </div>
 
-    <div class="whenFinished" v-show="!running">
-      <button @click="$emit('takeBreak')" v-show="!isBreak">take break</button>
-      <button @click="$emit('newTask')" v-show="isBreak">new task</button>
+    <div v-show="!running">
+      <div v-show="!isBreak" class="breakSelect">
+        <h2>take a &nbsp;</h2>
+          <button class="minuteSelection" @click="$emit('takeBreak', 2)">2</button>
+          <button class="minuteSelection" @click="$emit('takeBreak', 5)">5</button>
+          <button class="minuteSelection" @click="$emit('takeBreak', 15)">15</button>
+        <h2>&nbsp;minute break</h2>
+      </div>
+      <button class="newTask" @click="$emit('newTask')" v-show="isBreak">new task</button>
     </div>
 
     <pomodoroCounter/>
@@ -102,9 +108,14 @@ export default {
   font-size: 1.1rem;
 }
 
-.whenFinished button {
+.newTask {
   font-size: 1.2em;
   padding: 0.4em 1em;
   cursor: pointer;
+}
+
+.breakSelect {
+  @include flex-center;
+  font-size: 0.9em;
 }
 </style>
