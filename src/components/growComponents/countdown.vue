@@ -2,10 +2,7 @@
   <div id="countdown">
     <h1 v-show="taskName">{{ taskName }}</h1>
 
-    <div id="timer">
-      <p v-show="running">{{ minutes }}:{{ seconds }}</p>
-      <p v-show="!running">0:00</p>
-    </div>
+    <p id="timer">{{ timeLeft }}</p>
 
     <div class="addTimeButtons">
       <button class="minuteSelection" @click="$emit('addTime', 1)">+1</button>
@@ -14,21 +11,11 @@
     </div>
 
     <div class="whenFinished" v-show="!running">
-      <button
-        @click="$emit('takeBreak')"
-        v-show="!isBreak"
-      >
-        take break
-      </button>
-      <button
-        @click="$emit('newTask')"
-        v-show="isBreak"
-      >
-        new task
-      </button>
+      <button @click="$emit('takeBreak')" v-show="!isBreak">take break</button>
+      <button @click="$emit('newTask')" v-show="isBreak">new task</button>
     </div>
 
-    <pomodoroCounter />
+    <pomodoroCounter/>
   </div>
 </template>
 
@@ -45,6 +32,10 @@ export default {
     "seconds-left": {
       type: Number,
       default: 0
+    },
+    "time-left": {
+      type: String,
+      default: "0:00"
     },
     "plant-type": {
       type: String,
@@ -65,13 +56,6 @@ export default {
     };
   },
   computed: {
-    minutes() {
-      return Math.floor(this.secondsLeft / 60);
-    },
-    seconds() {
-      const secs = Math.floor(this.secondsLeft % 60);
-      return (secs < 10 ? "0" : "") + secs;
-    },
     running() {
       return this.secondsLeft > 0;
     },
@@ -110,10 +94,8 @@ export default {
 
 #timer {
   font-size: 7em;
-  p {
-    padding: 0;
-    margin: 0.2em 0;
-  }
+  padding: 0;
+  margin: 0.2em 0;
 }
 
 .addTimeButtons {

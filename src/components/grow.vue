@@ -11,6 +11,7 @@
       <countdown
         class="child"
         :seconds-left="secondsLeft"
+        :time-left="humanReadableTimeLeft"
         :plant-type="plantType"
         :task-name="taskName"
         :is-break="isBreak"
@@ -47,6 +48,20 @@ export default {
   computed: {
     secondsLeft() {
       return Math.floor((this.endTime - this.now) / 1000);
+    },
+    humanReadableTimeLeft() {
+      if (!this.running) return "0:00";
+
+      let secs = Math.floor(this.secondsLeft % 60);
+      secs = (secs < 10 ? "0" : "") + secs;
+      const mins = Math.floor(this.secondsLeft / 60);
+      return `${mins}:${secs}`;
+    },
+    titleString() {
+      if (this.activeComponent == "taskSelect") return "garden";
+
+      let task = this.taskName === "" ? "garden" : this.taskName;
+      return `${this.humanReadableTimeLeft} - ${task}`;
     }
   },
   mounted() {
@@ -78,7 +93,10 @@ export default {
     // timer
     tick() {
       this.updateNow();
-      if (this.running && this.secondsLeft <= 0) this.timeUp();
+      document.title = this.titleString;
+      if (this.running && this.secondsLeft <= 0) {
+        this.timeUp();
+      }
     },
     startTimer(taskName, minutes, isBreak = false) {
       this.updateNow();
