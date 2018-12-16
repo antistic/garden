@@ -105,6 +105,7 @@ export default {
     addTime(minutes) {
       window.clearInterval(this.ringID);
       this.setEndTime(Math.max(this.endTime, this.now) + minutes * 60 * 1000);
+      this.setRunning(true);
     },
     timeUp() {
       this.ringUntilNew();
