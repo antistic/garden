@@ -9,7 +9,7 @@
           size="18"
           autofocus
           v-model="taskInput"
-          @keyup.enter="submit"
+          @keyup.enter="go(25)"
         >
         <h1>for</h1>
       </div>
